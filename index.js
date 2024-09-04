@@ -11,7 +11,13 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://placeprep.vercel.app',
+  origin: function (origin, callback) {
+    if (!origin || ['http://localhost:5000', 'https://placeprep.vercel.app'].indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
