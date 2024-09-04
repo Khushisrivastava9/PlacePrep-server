@@ -9,7 +9,13 @@ const app = express();
 
 // using middlewares
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://placeprep.vercel.app',
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
 const port = process.env.PORT;
 
 app.get("/", (req, res) => {
